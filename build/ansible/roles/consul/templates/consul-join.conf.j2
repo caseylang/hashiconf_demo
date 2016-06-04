@@ -1,0 +1,19 @@
+description "Join the consul cluster"
+# {{ ansible_managed }}
+start on started consul
+stop on stopped consul
+
+task
+
+script
+  CONSUL_JOIN="{{ consul_join_ip }}"
+  # Keep trying to join until it succeeds
+  set +e
+  while :; do
+    consul join ${CONSUL_JOIN} >>/var/log/consul-join.log 2>&1
+    [ $? -eq 0 ] && break
+    sleep 5
+  done
+
+  logger -t "consul-join" "Join success!"
+end script

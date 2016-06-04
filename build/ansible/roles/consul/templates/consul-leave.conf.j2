@@ -1,0 +1,9 @@
+description "Gracefully leave consul cluster"
+# {{ ansible_managed }}
+start on stopping consul
+
+task
+
+script
+  consul leave
+end script

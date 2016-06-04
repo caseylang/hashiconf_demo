@@ -1,0 +1,24 @@
+---
+# User and Group for Consul related processes
+consul_user: consul
+consul_group: consul
+# Version of consul to use
+consul_version: 0.6.4
+# Whether or not the consul agent should be in client (default) or server mode
+consul_server: false
+# Number of servers to expect on bootstrapping
+consul_server_count: ""
+# Name of the consul server's datacenter
+consul_server_dc: dc1
+# The ip address to join
+consul_join_ip: ""
+# List of services to register when in client mode
+# refer to http://docs.ansible.com/ansible/consul_module.html
+# consul_registered_services:
+#   nginx:
+#     script: service nginx status
+#     port: 80
+#     interval: 60s
+#     tags:
+#       - webservers
+consul_registered_services: {}

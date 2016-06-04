@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+
+# Set the dhclient retry interval to 10 seconds instead of 5 minutes.
+retry 10;
+
+# Add localhost has a name server so Consul DNS can work
+prepend domain-name-servers 127.0.0.1;

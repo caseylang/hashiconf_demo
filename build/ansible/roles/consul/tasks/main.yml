@@ -1,0 +1,7 @@
+---
+- include: consul.yml
+
+- include: dnsmasq.yml
+
+- include: client.yml
+  when: not consul_server

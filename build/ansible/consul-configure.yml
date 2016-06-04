@@ -1,0 +1,12 @@
+---
+# These need to be run serially to ensure quorum is not lost
+- name: Configure Consul
+  hosts: tag_consul-server
+  serial: 2
+  become: true
+
+  roles:
+    - selinux
+    - repos
+    - ntp
+    - consul

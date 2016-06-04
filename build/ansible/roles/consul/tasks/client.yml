@@ -1,0 +1,21 @@
+---
+- name: Install EPEL
+  yum: name=epel-release state=installed
+
+- name: Install Consul client dependencies
+  yum: name=python-pip state=installed
+
+- name: Install Python Consul requirements
+  pip: name={{ item }}
+  with_items:
+    - requests
+    - python-consul
+
+- name: Register services
+  consul:
+    service_name: "{{ item.key }}"
+    service_port: "{{ item.value.port }}"
+    script: "{{ item.value.script }}"
+    interval: "{{ item.value.interval }}"
+    tags: "{{ item.value.tags }}"
+  with_dict: "{{ consul_registered_services }}"

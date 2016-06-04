@@ -1,0 +1,23 @@
+---
+- name: Install Dnsmasq
+  yum: state=present name=dnsmasq
+
+- name: Configure Consul DNS
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - src: dnsmasq.conf.j2
+      dest: /etc/dnsmasq.conf
+    - src: dhclient-eth0.conf.j2
+      dest: /etc/dhclient-eth0.conf
+  notify: "Restart Dnsmasq"
+
+- name: Modify resolv.conf for Consul dns
+  lineinfile: dest=/etc/resolv.conf line="nameserver 127.0.0.1" insertafter="^search "
+
+- name: Ensure Dnsmasq is running
+  service: name=dnsmasq state=started

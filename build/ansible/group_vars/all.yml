@@ -1,0 +1,11 @@
+# Set correct timezone
+ntp_timezone: UTC
+
+repositories:
+  centos6:
+    - name: epel
+      enabled: true
+    - name: remi
+      enabled: true
+    - name: mysql
+      enabled: true

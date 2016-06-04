@@ -1,0 +1,63 @@
+---
+- name: Create consul system user
+  user: name={{ consul_user }}
+        system=yes
+        shell=/bin/false
+
+- name: Install Consul dependencies
+  yum: state=present name={{ item }}
+  with_items:
+    - unzip
+    - libselinux-python
+
+- name: Check Consul version
+  become: false
+  shell: consul version | grep {{ consul_version }}
+  register: consul_check
+  changed_when: consul_check.rc > 0
+  failed_when: false
+
+- name: Download Consul
+  unarchive:
+    src: "https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip"
+    dest: /tmp
+    copy: false
+  when: consul_check.rc > 0
+
+- name: Move Consul to bin
+  command: mv /tmp/consul /usr/local/bin/consul
+  when: consul_check.rc > 0
+  notify: "Restart Consul"
+
+- name: Make Consul executable
+  file: path=/usr/local/bin/consul mode=a+x
+
+- name: Create Consul directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    recurse: yes
+  with_items:
+    - /etc/consul.d
+    - /mnt/consul
+
+- name: Create Consul start up scripts
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - src: consul.conf.j2
+      dest: /etc/init/consul.conf
+    - src: consul-join.conf.j2
+      dest: /etc/init/consul-join.conf
+    - src: consul-leave.conf.j2
+      dest: /etc/init/consul-leave.conf
+  notify: "Restart Consul"
+
+- name: Ensure Consul is running
+  service: name=consul state=started

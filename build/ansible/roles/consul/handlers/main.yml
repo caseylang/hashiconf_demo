@@ -1,0 +1,6 @@
+---
+- name: Restart Consul
+  service: name=consul state=restarted enabled=yes
+
+- name: Restart Dnsmasq
+  service: name=dnsmasq state=restarted enabled=yes
