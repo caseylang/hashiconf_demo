@@ -1,0 +1,10 @@
+---
+- name: Configure memcache
+  hosts: tag_memcache
+  become: true
+  roles:
+    - selinux
+    - repos
+    - ntp
+    - memcached
+    - consul

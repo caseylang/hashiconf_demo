@@ -10,3 +10,10 @@ module "consul" {
   user = "${var.user}"
   public_key_path = "${var.public_key_path}"
 }
+
+module "memcache" {
+  source = "../modules/memcache/"
+  region_zone = "${var.region_zone}"
+  public_key_path = "${var.public_key_path}"
+  user = "${var.user}"
+}

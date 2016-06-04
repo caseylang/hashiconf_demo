@@ -1,0 +1,11 @@
+# Memcached setup
+memcached_listen_ip: "0.0.0.0"
+memcached_memory_limit: 3000
+
+# Consul registered services
+consul_registered_services:
+  memcached:
+    script: service memcached status
+    port: 11211
+    interval: 60s
+    tags: []

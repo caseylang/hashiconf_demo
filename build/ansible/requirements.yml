@@ -5,3 +5,7 @@
 - src: AerisCloud.repos
   version: v1.1.1
   name: repos
+
+- src: geerlingguy.memcached
+  version: 1.0.4
+  name: memcached
