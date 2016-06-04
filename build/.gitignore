@@ -1,0 +1,13 @@
+*.swp
+.DS_Store
+packer_cache/
+*.box
+roles_galaxy/
+*.pyc
+*.tfvars
+*.tfstate
+*.tfstate.backup
+*.retry
+*.pem
+ansible/inventories/gce.ini
+.terraform/
