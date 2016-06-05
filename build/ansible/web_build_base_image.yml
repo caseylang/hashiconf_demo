@@ -1,0 +1,11 @@
+---
+- name: Configure web base image
+  hosts: web_base_box
+  become: true
+
+  roles:
+    - selinux
+    - repos
+    - web-base
+    - ntp
+    - ruby

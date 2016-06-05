@@ -1,0 +1,45 @@
+---
+# Set correct timezone
+ntp_timezone: UTC
+
+repositories:
+  centos6:
+    - name: epel
+      enabled: true
+    - name: remi
+      enabled: true
+    - name: mysql
+      enabled: true
+
+# web setup
+web_user: hashiconf-demo
+web_group: "{{ web_user }}"
+web_app_dir: /apps/wasbeer
+ansible_ssh_user: "{{ web_user }}"
+
+ruby_install_from_source: true
+ruby_download_url: https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz
+ruby_version: 2.3.1
+workspace: /tmp
+
+required_packages:
+  - gcc
+  - make
+  - gcc-c++
+  - git
+  - curl
+  - perl
+  - wget
+  - vim-enhanced
+  - tree
+  - screen
+  - ImageMagick
+  - ImageMagick-devel
+  - patch
+  - libxml2-devel
+  - libxslt-devel
+  - libpng-devel
+  - readline-devel
+  - mysql-client
+  - mysql-devel
+  - MySQL-python

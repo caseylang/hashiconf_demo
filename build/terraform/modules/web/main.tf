@@ -21,7 +21,7 @@ resource "google_compute_instance" "web" {
   tags = ["web"]
 
   disk {
-    image = "centos-6-v20160526"
+    image = "web-base"
   }
 
   network_interface {

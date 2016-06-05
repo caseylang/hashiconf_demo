@@ -1,14 +1,11 @@
 ---
+- include: web_build_base_image.yml
+
 - name: Configure web boxes
   hosts: tag_web
   become: true
 
   roles:
-    - selinux
-    - repos
-    - web-base
-    - ntp
-    - ruby
     - nginx
     - cloud-sql-proxy
     - web-deps
