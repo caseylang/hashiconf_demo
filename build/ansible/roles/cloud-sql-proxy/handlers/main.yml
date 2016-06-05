@@ -1,0 +1,4 @@
+---
+# handlers file for cloud-sql
+- name: restart cloud_sql_proxy
+  service: name=cloud_sql_proxy state=started enabled=yes

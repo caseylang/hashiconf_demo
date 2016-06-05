@@ -1,0 +1,15 @@
+---
+# Remove cached fastest mirrors
+# https://www.hugeserver.com/blog/tutorials/speed-yum-centos/
+- name: Check for fastedst mirrors
+  file: name=/var/cache/yum/timedhosts.txt state=absent
+
+- name: Upgrade all packages
+  command: yum -y update creates={{ yum_lock }}
+
+- name: Create yum update lock file
+  command: touch {{ yum_lock }} creates={{ yum_lock }}
+
+- name: Install web dependencies
+  yum: state=present name={{ item }}
+  with_items: "{{ required_packages }}"

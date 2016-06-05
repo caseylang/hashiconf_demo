@@ -9,3 +9,11 @@
 - src: geerlingguy.memcached
   version: 1.0.4
   name: memcached
+
+- src: geerlingguy.ruby
+  version: 2.3.1
+  name: ruby
+
+- src: jdauphant.nginx
+  version: v2.2.3
+  name: nginx

@@ -1,0 +1,24 @@
+web_user: web
+web_group: "{{ web_user }}"
+web_app_dir: /apps/
+web_config_path: "{{ web_app_dir }}/config"
+web_memcached_host: 127.0.0.1
+
+# List of databases to create
+web_dbs:
+  - name: web_production
+    encoding: utf8mb4
+    collation: utf8mb4_bin
+
+# The direcotry the web application lives in
+unicorn_app_dir: ""
+# The user to run the unicorn service as
+unicorn_user: ""
+# The name of the pid file
+unicorn_pid: unicorn.pid
+# The direcorty containing the pid file
+unicorn_proc_folder: /var/run/unicorn
+# The environment to run the unicorn service in
+unicorn_app_env: development
+# The full path to the unicorn config file
+unicorn_config: "{{ unicorn_app_dir }}/config/unicorn/development.rb"

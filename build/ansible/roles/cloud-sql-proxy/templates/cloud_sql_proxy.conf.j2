@@ -1,0 +1,11 @@
+description "cloud_sql_proxy"
+# {{ ansible_managed }}
+start on started network
+stop on runlevel [!2345]
+
+script
+
+  exec cloud_sql_proxy -dir=/cloudsql -fuse
+
+  logger -t "cloud_sql_proxy" "Started!"
+end script

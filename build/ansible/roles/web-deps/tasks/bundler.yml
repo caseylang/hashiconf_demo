@@ -1,0 +1,7 @@
+---
+- name: Install gem dependencies
+  become: false
+  bundler:
+    state: present
+    user_install: false
+    chdir: "{{ web_app_dir }}"

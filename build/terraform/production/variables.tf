@@ -23,3 +23,7 @@ variable "public_key_path" {
   description = "Path to a public key to add to the machine"
   default = "~/.ssh/id_rsa.pub"
 }
+
+variable "sql_instance_name" {
+  description = "Name of sql db instance to create. This name must start with a letter, consist of only lowercase letters, numbers and hyphens."
+}

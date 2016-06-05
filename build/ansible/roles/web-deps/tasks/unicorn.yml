@@ -1,0 +1,17 @@
+---
+- name: Create process folder
+  file:
+    path: "{{ unicorn_proc_folder }}"
+    owner: "{{ unicorn_user }}"
+    group: "{{ unicorn_user }}"
+    state: directory
+
+- name: Create init file
+  template:
+    src: unicorn.j2
+    dest: /etc/init.d/unicorn
+    mode: 0755
+  notify: "Restart Unicorn"
+
+- name: Ensure unicorn is enabled
+  service: name=unicorn enabled=yes

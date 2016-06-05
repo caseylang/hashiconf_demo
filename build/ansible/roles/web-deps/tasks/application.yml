@@ -1,0 +1,10 @@
+---
+- name: Update application config
+  template:
+    src: application.yml.j2
+    dest: "{{ web_config_path }}/application.yml"
+
+- name: Create health check file
+  copy:
+    src: health-check.txt
+    dest: "{{ web_app_dir }}/public/system/health-check.txt"

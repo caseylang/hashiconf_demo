@@ -1,0 +1,33 @@
+---
+- name: Update Rails database config
+  template:
+    src: database.yml.j2
+    dest: "{{ web_config_path }}/database.yml"
+
+- name: Create databases
+  mysql_db:
+    name: "{{ item.name }}"
+    state: present
+    login_unix_socket: "{{ web_sql_socket }}"
+    encoding: "{{ item.encoding }}"
+    collation: "{{ item.collation }}"
+  with_items: "{{ web_dbs }}"
+
+# - name: Check migrations
+#   become: false
+#   shell: bundle exec rake db:migrate:status | grep '^  down'
+#   args:
+#     chdir: "{{ web_app_dir }}"
+#   environment:
+#     RAILS_ENV: "{{ web_rails_env }}"
+#   register: migration_check
+#   changed_when: migration_check.rc == 0
+#
+# - name: Run migrations
+#   become: false
+#   command: bundle exec rake db:migrate
+#   args:
+#     chdir: "{{ web_app_dir }}"
+#   environment:
+#     RAILS_ENV: "{{ web_rails_env }}"
+#   when: migration_check.rc == 0

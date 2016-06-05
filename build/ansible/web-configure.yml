@@ -1,0 +1,15 @@
+---
+- name: Configure web boxes
+  hosts: tag_web
+  become: true
+
+  roles:
+    - selinux
+    - repos
+    - web-base
+    - ntp
+    - ruby
+    - nginx
+    - cloud-sql-proxy
+    - web-deps
+    - consul

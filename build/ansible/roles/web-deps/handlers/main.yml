@@ -1,0 +1,3 @@
+---
+- name: Restart Unicorn
+  service: name=unicorn state=restarted enabled=yes

@@ -17,3 +17,13 @@ module "memcache" {
   public_key_path = "${var.public_key_path}"
   user = "${var.user}"
 }
+
+module "web" {
+  source = "../modules/web/"
+  region = "${var.region}"
+  project_name = "${var.project_name}"
+  region_zone = "${var.region_zone}"
+  public_key_path = "${var.public_key_path}"
+  user = "${var.user}"
+  sql_instance_name = "${var.sql_instance_name}"
+}

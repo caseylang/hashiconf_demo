@@ -1,0 +1,18 @@
+# Main DB
+development:
+  adapter: mysql2
+  host: localhost
+  socket: {{ web_sql_socket }}
+  username: root
+  database: web_dev
+  encoding: utf8mb4
+  collation: utf8mb4_bin
+
+production:
+  adapter: mysql2
+  host: localhost
+  socket: {{ web_sql_socket }}
+  username: root
+  database: web_production
+  encoding: utf8mb4
+  collation: utf8mb4_bin

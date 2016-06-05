@@ -1,0 +1,6 @@
+---
+- include: copy_project.yml
+- include: bundler.yml
+- include: application.yml
+- include: database.yml
+# - include: unicorn.yml

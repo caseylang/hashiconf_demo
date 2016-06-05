@@ -1,0 +1,23 @@
+---
+- name: Create project folder
+  file:
+    path: "{{ web_app_dir }}"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
+    state: directory
+
+- name: Copy project
+  synchronize:
+    src: "{{ web_project_src }}"
+    dest: "{{ web_app_dir }}/"
+    archive: no
+    recursive: yes
+    mode: push
+
+- name: Fix project permissions
+  file:
+    path: "{{ web_app_dir }}"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
+    recurse: yes
+    state: directory

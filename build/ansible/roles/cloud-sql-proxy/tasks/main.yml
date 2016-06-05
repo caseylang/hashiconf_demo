@@ -1,0 +1,30 @@
+---
+# tasks file for cloud-sql-proxy
+- name: install packages
+  yum: name={{ item }} state=installed
+  with_items:
+    - mysql-community-client
+    - mysql-community-devel
+    - fuse
+
+- name: install cloud sql proxy
+  get_url:
+    url: https://dl.google.com/cloudsql/cloud_sql_proxy
+    dest: /usr/local/bin/cloud_sql_proxy
+    mode: 0777
+
+- name: create cloud sql proxy link
+  file:
+    src: /usr/local/bin/cloud_sql_proxy
+    dest: /usr/bin/cloud_sql_proxy
+    state: link
+
+- name: create cloud sql proxy directory
+  file:
+    state: directory
+    path: /cloudsql
+    mode: 0777
+
+- name: create cloud_sql_proxy upstart script
+  template: src=cloud_sql_proxy.conf.j2 dest=/etc/init/cloud_sql_proxy.conf
+  notify: restart cloud_sql_proxy
